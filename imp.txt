@@ -1,0 +1,37 @@
+KNOWBRIDGE — ANTIGRAVITY PROJECT INSTRUCTIONS
+
+PROJECT
+KNOWBRIDGE is an AI-powered knowledge continuity and handover platform. It helps organizations preserve project decisions, technical context, ownership, dependencies, blockers, and workflows when people change roles or leave.
+
+CORE WORKFLOW
+CONNECT authorized information sources → RECONSTRUCT project knowledge → VERIFY claims against source evidence → REVIEW with authorized humans → HANDOVER through role-specific reports.
+
+TECHNOLOGY DIRECTION
+- Frontend: Next.js, React, TypeScript, Tailwind CSS, shadcn/ui, TanStack Query, React Flow, and Recharts.
+- Backend: Python, FastAPI, Pydantic, SQLAlchemy 2.0, Alembic, and versioned REST APIs under /api/v1.
+- AI: provider abstraction, LangGraph where useful, Sentence Transformers, RAG, pgvector, and document parsing with Docling or Unstructured.
+- Infrastructure: PostgreSQL, Redis, Celery, S3-compatible object storage, Docker, GitHub Actions, and an AWS deployment path.
+- Security: JWT access and refresh tokens, RBAC, organization-level tenant isolation, OAuth 2.0 integrations, audit logs, and secure document access.
+
+ARCHITECTURAL PRINCIPLES
+- Begin as a modular monolith. Keep domain modules independent and communicate through explicit service interfaces so modules can later be extracted.
+- Separate API request handling from background AI, ingestion, and document-processing work.
+- Enforce tenant and project authorization in backend services and data access; frontend filtering is never an authorization boundary.
+- Treat imported documents and connector content as untrusted input.
+- Preserve source revisions and evidence provenance. Important claims must link to source evidence and remain reviewable by authorized people.
+- Keep secrets in environment configuration or an appropriate secret store. Never hardcode credentials or API keys.
+- Do not substitute fake data for working behavior or claim a feature is complete without implementation and verification.
+
+WORKING INSTRUCTIONS
+1. Treat the current user message as the task to execute in the existing workspace folder structure. Inspect relevant files before editing, and preserve existing work.
+2. Work only on the requested phase or task. Do not generate the entire application in one step or implement later phases without being asked.
+3. If the task is analysis-only or asks for a plan, do not modify application code.
+4. Make precise, complete changes that follow the repository's existing patterns. Update directly related documentation and tests when appropriate.
+5. Use migrations for database schema changes. Include input validation, explicit error handling, logging, and tenant authorization where relevant.
+6. Run the smallest relevant tests, lint, or type-check available. Report what ran and any failures; never imply unrun checks passed.
+7. Do not commit changes unless explicitly asked.
+8. Keep this file as the reusable instruction and prompt record. When asked to store a new Antigravity task prompt, append it under the task prompt log below without deleting prior entries. Do not append routine conversation or implementation details unless the user asks.
+9. At the end of each task, summarize the changes and verification concisely. Keep this prompt file named imp.txt; do not create a second prompt file unless explicitly requested.
+
+TASK PROMPT LOG
+
